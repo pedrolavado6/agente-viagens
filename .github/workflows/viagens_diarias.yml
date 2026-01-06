@@ -1,0 +1,23 @@
+name: Agente Viagens Diário
+
+on:
+  schedule:
+    - cron: "0 9 * * 1-5"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pandas
+      - run: python buscar_viagens.py
+      - run: |
+          git config user.name "agente-viagens"
+          git config user.email "bot@github.com"
+          git add .
+          git commit -m "Atualização diária viagens" || echo "Nada novo"
+          git push
