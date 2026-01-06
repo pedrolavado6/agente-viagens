@@ -15,9 +15,11 @@ jobs:
           python-version: "3.11"
       - run: pip install requests pandas
       - run: python buscar_viagens.py
+      - name: Commit e Push
       - run: |
           git config user.name "agente-viagens"
           git config user.email "bot@github.com"
           git add .
           git commit -m "Atualização diária viagens" || echo "Nada novo"
-          git push
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/pedrolavado6/agente-viagens.git
+
