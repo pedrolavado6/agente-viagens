@@ -25,7 +25,11 @@ jobs:
         run: pip install requests pandas
 
       - name: Executar agente
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python buscar_viagens.py
+
 
       - name: Commit e push
         run: |
